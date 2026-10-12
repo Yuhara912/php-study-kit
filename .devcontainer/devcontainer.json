@@ -1,0 +1,19 @@
+{
+    "name": "PHP 7 Study Environment",
+
+    "dockerComposeFile": "../docker-compose.yml",
+
+    "service": "php",
+
+    "workspaceFolder": "/var/www/html",
+
+    "shutdownAction": "stopCompose",
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bmewburn.vscode-intelephense-client"
+            ]
+        }
+    }
+}

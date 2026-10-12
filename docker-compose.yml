@@ -1,0 +1,35 @@
+services:
+
+  php:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+
+    volumes:
+      - ./src:/var/www/html
+
+    ports:
+      - "8081:80"
+
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: php_study
+      MYSQL_USER: php_user
+      MYSQL_PASSWORD: php_password
+
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+
+    ports:
+      - "3305:3305"
+
+volumes:
+  db-data:
