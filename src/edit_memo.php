@@ -27,27 +27,14 @@
         $stmt = $pdo->query("SELECT * FROM memos");
         $memos = $stmt->fetchAll();
     }
-
-    if($_SERVER['REQUEST_METHOD'] === 'POST') { 
-        $idsToDelete = $_POST['ids'] ?? [];
-        if (!empty($idsToDelete)) {
-            $placeholders = implode(',', array_fill(0, count($idsToDelete), '?'));
-            $stmt = $pdo->prepare("DELETE FROM memos WHERE id IN ($placeholders)");
-            $stmt->execute($idsToDelete);
-            $message = '選択されたメモが削除されました。';
-        } else {
-            $message = '削除するメモが選択されていません。';
-        }
-    }
 ?>
 <!DOCTYPE html>
     <html lang = "ja">
         <head>
             <meta charset="UTF-8">
-            <title>メモ削除</title>
+            <title>メモ編集</title>
         </head>
         <body>
-            <form method="post" action="delete_memo.php">
             <table>
                 <th></th>
                 <th>No</th>
@@ -65,7 +52,8 @@
                     </tr>
                 <?php endforeach?>
             </table>
-                <button type = "submit">削除</button>
+            <form action = "edit_text.php" method = "post">
+                <button type = "submit" >編集</button>
             </form>
             <form action="show_memo.php" method = "get">
                 <button type = "submit">戻る</button>
